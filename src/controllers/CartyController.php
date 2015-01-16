@@ -34,6 +34,9 @@ class CartyController extends \BaseController{
     function addProductToCart(){
         $product_id = Input::json('product_id');
         $cart_id = Input::json('cart_id');
+        $quantity = Input::json('quantity');
+
+
     }
 
     function removeProductFromCart(){
