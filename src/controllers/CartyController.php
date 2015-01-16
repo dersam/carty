@@ -31,12 +31,15 @@ class CartyController extends \BaseController{
 
     }
 
+    /**
+     * Adds a product to the cart
+     *
+     * If the product is already in the cart, updates the quantity
+     */
     function addProductToCart(){
         $product_id = Input::json('product_id');
         $cart_id = Input::json('cart_id');
         $quantity = Input::json('quantity');
-
-
     }
 
     function removeProductFromCart(){

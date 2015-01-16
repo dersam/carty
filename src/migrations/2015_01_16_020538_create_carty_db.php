@@ -32,11 +32,13 @@ class CreateCartyDb extends Migration {
 
 		Schema::create('cart_contents',function($table){
 			$table->engine = 'InnoDB';
-
-			$table->increments('id');
 			$table->integer('cart_id')->unsigned();
 			$table->integer('product_id')->unsigned();
 			$table->timestamps();
+
+			$table->primary(array('cart_id','product_id'));
+			$table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
+			$table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 		});
 	}
 
@@ -47,9 +49,10 @@ class CreateCartyDb extends Migration {
 	 */
 	public function down()
 	{
+		Schema::dropIfExists('cart_contents');
 		Schema::dropIfExists('carts');
 		Schema::dropIfExists('products');
-		Schema::dropIfExists('cart_contents');
+
 	}
 
 }
