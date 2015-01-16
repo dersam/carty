@@ -10,6 +10,8 @@ class CartyController extends \BaseController{
                 'ip' => \Request::getClientIp()
             ));
             $cart->save();
+
+            \Session::set('cart_id',$cart->id);
         }
         else{
             $cart = Cart::find(\Session::get('cart_id'));
