@@ -17,7 +17,7 @@ class CreateCartyDb extends Migration {
 
 			$table->increments('id');
 			$table->dateTime('began_shopping_at');
-			$table->string('ip',46); //to allow for IPv6 addresses
+			$table->string('ip',46)->nullable(); //to allow for IPv6 addresses
 			$table->timestamps();
 		});
 

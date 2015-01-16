@@ -1,10 +1,8 @@
 <?php
-/**
- * User: Sam
- * Date: 1/15/2015
- * Time: 9:17 PM
- */
 
-class Cart extends Eloquent{
+namespace Dersam\Carty;
+
+class Cart extends \Eloquent{
     protected $table = 'carts';
+    protected $fillable = array('began_shopping_at','ip');
 }

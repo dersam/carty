@@ -2,9 +2,7 @@
 
 Route::group(array('prefix'=>'carty'),function(){
     //Store
-    Route::get('',function(){
-        return 'Hello World';
-    });
+    Route::get('/','Dersam\Carty\CartyController@getStorefront');
 
     //Cart
 
