@@ -3,6 +3,11 @@
 namespace Dersam\Carty;
 
 class CartyController extends \BaseController{
+
+    /**
+     * Get the storefront page that displays products
+     * @return mixed
+     */
     function getStorefront(){
         if(!\Session::get('cart_id',false)) {
             $cart = new Cart(array(
@@ -17,6 +22,6 @@ class CartyController extends \BaseController{
             $cart = Cart::find(\Session::get('cart_id'));
         }
 
-        return $cart->began_shopping_at;
+        return \View::make('carty::layout');
     }
 }
