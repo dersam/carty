@@ -27,8 +27,10 @@ class CartyController extends \BaseController{
     }
 
     function getCartView(){
+
         return View::make('carty::cart',array(
-            'title'=>'Carty'
+            'title'=>'Carty',
+            'cart'=>$this->getCart()
         ));
     }
 
@@ -44,7 +46,7 @@ class CartyController extends \BaseController{
         ));
         $cart->save();
 
-        Session::set('cart_id',$cart->id);
+        Session::set('carty.cart_id',$cart->id);
 
         return $cart->id;
     }
@@ -55,7 +57,7 @@ class CartyController extends \BaseController{
      * @return \Illuminate\Http\JsonResponse
      */
     function getCart(){
-        $cart_id = Session::get('cart_id',false);
+        $cart_id = Session::get('carty.cart_id',false);
 
         if(!$cart_id) {
             $cart_id = $this->initCart();
@@ -87,7 +89,7 @@ WHERE cart_id = ?", array($cart_id));
             ), 500);
         }
 
-        $json = array(
+        $cart_contents = array(
             'success'=>true,
             'cart_id'=>$cart_id,
             'products'=>array(),
@@ -100,21 +102,22 @@ WHERE cart_id = ?", array($cart_id));
         foreach($contents as $row){
             $product = array(
                 'id'=>$row->product_id,
+                'name'=>$row->name,
                 'quantity'=>$row->quantity,2,
                 'price_per_unit'=>$row->price_per_unit,
                 'total'=> $row->quantity*$row->price_per_unit
             );
 
-            $json['subtotal'] += $product['total'];
+            $cart_contents['subtotal'] += $product['total'];
 
-            $json['products'][]=$product;
+            $cart_contents['products'][]=$product;
         }
 
-        $json['gst'] = Config::get('carty::taxes.GST')*$json['subtotal'];
-        $json['pst'] = Config::get('carty::taxes.PST')*$json['subtotal'];
-        $json['total'] = $json['subtotal'] + $json['gst'] + $json['pst'];
+        $cart_contents['gst'] = Config::get('carty::taxes.GST')*$cart_contents['subtotal'];
+        $cart_contents['pst'] = Config::get('carty::taxes.PST')*$cart_contents['subtotal'];
+        $cart_contents['total'] = $cart_contents['subtotal'] + $cart_contents['gst'] + $cart_contents['pst'];
 
-        return Response::json($json);
+        return $cart_contents;
     }
 
     /**
