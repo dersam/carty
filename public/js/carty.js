@@ -27,7 +27,6 @@ Carty.Events.registerEvents = function(){
 };
 
 Carty.Events.OnQuantityChange = function(event){
-    console.log(event);
     var product_id = event.target.dataset.product;
     var quantity = event.target.value;
     jQuery('#shopping-cart').hide();
@@ -50,8 +49,7 @@ Carty.Events.OnQuantityChange = function(event){
         })
         .fail(function(response){
             jQuery('#loader-image').slideUp();
-            if(response.code == 400)
-                Alert.error("Invalid quantity ("+quantity+") requested.");
+            jQuery('#shopping-cart').show();
         });
 };
 
@@ -79,32 +77,4 @@ Carty.Cart.reload = function(){
                 Carty.Events.registerEvents();
             });
     });
-};
-
-var Alert = {
-    info: function(message){
-        noty({
-            text: message,
-            type: 'information',
-            animation: {
-                open: 'animated bounceInUp', // Animate.css class names
-                close: 'animated bounceOutDown' // Animate.css class names
-            },
-            layout: 'bottom',
-            timeout: 5000
-        });
-    },
-
-    error: function(message){
-        noty({
-            text: message,
-            type: 'error',
-            animation: {
-                open: 'animated bounceInUp', // Animate.css class names
-                close: 'animated bounceOutDown' // Animate.css class names
-            },
-            layout: 'bottom',
-            timeout: 5000
-        });
-    }
 };
