@@ -61,6 +61,22 @@ class CartyController extends \BaseController{
         $cart_id = Session::get('cart_id');
         $quantity = Input::json('quantity');
 
+        $validator = Validator::make(
+            array(
+                'product_id'=>$product_id,
+                'quantity'=>$quantity
+            ),
+            array(
+                'product_id'=>array('required','integer'),
+                'quantity'=>array('required','numeric')
+            )
+        );
+
+        if($validator->fails()){
+            Log::error(print_r($validator->messages()->all(),true),array('__CLASS__','__FUNCTION__'));
+            return Response::json(array('success'=>false,'code'=>400,'message'=>'invalid request'));
+        }
+
         DB::insert("
 INSERT INTO cart_contents SET cart_id=?,product_id=?, quantity=?, created_at=?, updated_at=?
 ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
