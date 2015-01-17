@@ -30,9 +30,10 @@ Carty.Events.OnQuantityChange = function(event){
     console.log(event);
     var product_id = event.target.dataset.product;
     var quantity = event.target.value;
+    jQuery('#shopping-cart').hide();
 
     quantity = quantity == '' ? 0 : quantity;
-
+    jQuery('#loader-image').slideDown();
     jQuery.ajax({
         url:'cart/contents',
         method: 'POST',
@@ -43,12 +44,12 @@ Carty.Events.OnQuantityChange = function(event){
         })
     })
         .done(function(response){
-
-            jQuery('#loader-image').slideDown();
             jQuery('#shopping-cart').empty();
+            jQuery('#shopping-cart').show();
             Carty.Cart.reload();
         })
         .fail(function(response){
+            jQuery('#loader-image').slideUp();
             if(response.code == 400)
                 Alert.error("Invalid quantity ("+quantity+") requested.");
         });
