@@ -112,13 +112,13 @@ WHERE cart_id = ?", array($cart_id));
 
             $cart_contents['products'][]=$product;
         }
-        Log::info(print_r($cart_contents,true));
+
         $cart_contents['gst'] = number_format(Config::get('carty::taxes.GST')*$cart_contents['subtotal'],2);
         $cart_contents['pst'] = number_format(Config::get('carty::taxes.PST')*$cart_contents['subtotal'],2);
         $cart_contents['total'] = number_format($cart_contents['subtotal'] + $cart_contents['gst'] + $cart_contents['pst'],2);
 
         $cart_contents['subtotal'] = number_format($cart_contents['subtotal'],2);
-        Log::info(print_r($cart_contents,true));
+
         return Response::json($cart_contents);
     }
 
