@@ -1,12 +1,10 @@
 @extends('carty::layout')
 
 @section('content')
+    <script id="cart-template" type="text/x-handlebars-template">
     <div style="padding-top: 10px"></div>
-    <div class="container">
-        <h1>Shopping Cart ({{$cart['cart_id']}})</h1>
-        @if(count($cart['products'])==0)
-        <p>Your cart is empty!</p>
-        @else
+    <div class="row">
+        <h1>Shopping Cart</h1>
         <div class="row">
             <table class="table table-hover table-striped carty-cart-table">
                 <tr>
@@ -15,43 +13,40 @@
                     <th class="carty-cart-col-quantity">Quantity</th>
                     <th class="carty-cart-col-total">Total</th>
                 </tr>
-                @foreach($cart['products'] as $product)
+                {{#each products}}
                 <tr>
-                    <td>{{$product['name']}}</td>
-                    <td>${{number_format($product['price_per_unit'],2)}}</td>
-                    <td>{{$product['quantity']}}</td>
-                    <td>${{number_format($product['total'],2)}}</td>
+                    <td>{{name}}</td>
+                    <td>${{price_per_unit}}</td>
+                    <td>{{quantity}}</td>
+                    <td>${{total}}</td>
                 </tr>
-                @endforeach
+                {{/each}}
                 <tr>
                     <td class="carty-hidden-table-cell"></td>
                     <td class="carty-hidden-table-cell"></td>
                     <td>Subtotal</td>
-                    <td>${{number_format($cart['subtotal'],2)}}</td>
+                    <td>${{subtotal}}</td>
                 </tr>
                 <tr>
                     <td class="carty-hidden-table-cell"></td>
                     <td class="carty-hidden-table-cell"></td>
                     <td>GST</td>
-                    <td>${{number_format($cart['gst'],2)}}</td>
+                    <td>${{gst}}</td>
                 </tr>
                 <tr>
                     <td class="carty-hidden-table-cell"></td>
                     <td class="carty-hidden-table-cell"></td>
                     <td>PST</td>
-                    <td>${{number_format($cart['pst'],2)}}</td>
+                    <td>${{pst}}</td>
                 </tr>
                 <tr>
                     <td class="carty-hidden-table-cell"></td>
                     <td class="carty-hidden-table-cell"></td>
                     <td>Grand Total</td>
-                    <td>${{number_format($cart['total'],2)}}</td>
+                    <td>${{total}}</td>
                 </tr>
             </table>
-            <table class="table">
-
-            </table>
         </div>
-        @endif
     </div>
+    </script>
 @stop

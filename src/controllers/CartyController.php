@@ -29,8 +29,7 @@ class CartyController extends \BaseController{
     function getCartView(){
 
         return View::make('carty::cart',array(
-            'title'=>'Carty',
-            'cart'=>$this->getCart()
+            'title'=>'Carty'
         ));
     }
 
@@ -103,9 +102,9 @@ WHERE cart_id = ?", array($cart_id));
             $product = array(
                 'id'=>$row->product_id,
                 'name'=>$row->name,
-                'quantity'=>$row->quantity,2,
-                'price_per_unit'=>$row->price_per_unit,
-                'total'=> $row->quantity*$row->price_per_unit
+                'quantity'=>$row->quantity,
+                'price_per_unit'=>number_format($row->price_per_unit,2),
+                'total'=> number_format($row->quantity*$row->price_per_unit,2)
             );
 
             $cart_contents['subtotal'] += $product['total'];
@@ -113,11 +112,11 @@ WHERE cart_id = ?", array($cart_id));
             $cart_contents['products'][]=$product;
         }
 
-        $cart_contents['gst'] = Config::get('carty::taxes.GST')*$cart_contents['subtotal'];
-        $cart_contents['pst'] = Config::get('carty::taxes.PST')*$cart_contents['subtotal'];
-        $cart_contents['total'] = $cart_contents['subtotal'] + $cart_contents['gst'] + $cart_contents['pst'];
+        $cart_contents['gst'] = number_format(Config::get('carty::taxes.GST')*$cart_contents['subtotal'],2);
+        $cart_contents['pst'] = number_format(Config::get('carty::taxes.PST')*$cart_contents['subtotal'],2);
+        $cart_contents['total'] = number_format($cart_contents['subtotal'] + $cart_contents['gst'] + $cart_contents['pst'],2);
 
-        return $cart_contents;
+        return Response::json($cart_contents);
     }
 
     /**

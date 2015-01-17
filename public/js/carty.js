@@ -6,16 +6,25 @@ var Carty = {
     init: function(){
 
     },
-    addProduct: function(){
-
-    },
-    removeProduct: function(){
-
-    },
-    emptyCart: function(){
-
-    },
     getCart: function(){
 
-    }
+    },
+    Events: {},
+    Cart: {}
+};
+
+Carty.Cart.add = function(){
+
+};
+
+Carty.Cart.remove = function(){
+
+};
+
+Carty.Cart.empty = function(){
+
+};
+
+Carty.Cart.reload = function(){
+
 };
