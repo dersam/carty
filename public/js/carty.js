@@ -25,6 +25,10 @@ Carty.Cart.add = function(){
 
 };
 
+Carty.Cart.update = function(){
+
+}
+
 Carty.Cart.remove = function(){
 
 };

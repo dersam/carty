@@ -1,10 +1,22 @@
 <?php
 
 Route::group(array('prefix'=>'carty'),function(){
-    //Store
+    //Get the storefront page
     Route::get('/', array('as'=>'store','uses'=>'Dersam\Carty\CartyController@getStorefront'));
 
     //Cart
-    Route::get('/cart',array('as'=>'cart','uses'=>'Dersam\Carty\CartyController@getCartView'));
-    Route::get('/cart/contents',array('as'=>'cart-contents','uses'=>'Dersam\Carty\CartyController@getCart'));
+    Route::group(array('prefix'=>'cart'),function(){
+        //Get the cart page
+        Route::get('/',array('as'=>'cart','uses'=>'Dersam\Carty\CartyController@getCartView'));
+
+        //Get the JSON cart contents
+        Route::get('/contents',array('as'=>'cart-contents','uses'=>'Dersam\Carty\CartyController@getCart'));
+
+        //Update an item in the cart
+        Route::post('/contents','CartyController@addProductToCart');
+
+        //Remove an item from the cart
+        Route::delete('/contents','CartyController@removeProductFromCart');
+
+    });
 });
