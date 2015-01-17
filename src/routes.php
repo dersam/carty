@@ -13,10 +13,10 @@ Route::group(array('prefix'=>'carty'),function(){
         Route::get('/contents',array('as'=>'cart-contents','uses'=>'Dersam\Carty\CartyController@getCart'));
 
         //Update an item in the cart
-        Route::post('/contents','CartyController@addProductToCart');
+        Route::post('/contents','Dersam\Carty\CartyController@addProductToCart');
 
         //Remove an item from the cart
-        Route::delete('/contents','CartyController@removeProductFromCart');
+        Route::delete('/contents','Dersam\Carty\CartyController@removeProductFromCart');
 
     });
 });

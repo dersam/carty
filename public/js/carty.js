@@ -22,11 +22,30 @@ var Carty = {
 };
 
 Carty.Events.registerEvents = function(){
-    jQuery('[')
+    jQuery('[data-role="quantity"]').on('change',
+        function(event){Carty.Events.OnQuantityChange(event)});
 };
 
-Carty.Events.OnQuantityChange = function(){
+Carty.Events.OnQuantityChange = function(event){
+    console.log(event);
+    var product_id = event.target.dataset.product;
+    var quantity = event.target.value;
 
+    quantity = quantity == '' ? 0 : quantity;
+
+    jQuery.ajax({
+        url:'cart/contents',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            product_id: product_id,
+            quantity: quantity
+        })
+    })
+        .fail(function(response){
+            if(response.code == 400)
+                Alert.error("Invalid quantity ("+quantity+") requested.");
+        });
 };
 
 Carty.Cart.add = function(){
@@ -49,6 +68,35 @@ Carty.Cart.reload = function(){
                 var html = template(response);
                 jQuery('#shopping-cart').html(html);
                 jQuery('#loader-image').slideUp();
+                Carty.Events.registerEvents();
             });
     });
+};
+
+var Alert = {
+    info: function(message){
+        noty({
+            text: message,
+            type: 'information',
+            animation: {
+                open: 'animated bounceInUp', // Animate.css class names
+                close: 'animated bounceOutDown' // Animate.css class names
+            },
+            layout: 'bottom',
+            timeout: 5000
+        });
+    },
+
+    error: function(message){
+        noty({
+            text: message,
+            type: 'error',
+            animation: {
+                open: 'animated bounceInUp', // Animate.css class names
+                close: 'animated bounceOutDown' // Animate.css class names
+            },
+            layout: 'bottom',
+            timeout: 5000
+        });
+    }
 };

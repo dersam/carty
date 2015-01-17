@@ -79,8 +79,8 @@ FROM cart_contents
 INNER JOIN products ON product_id = products.id
 WHERE cart_id = ?", array($cart_id));
         } catch(\Exception $e){
-            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
-            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getMessage(),array(__CLASS__,__FUNCTION__));
+            Log::error($e->getTraceAsString(),array(__CLASS__,__FUNCTION__));
 
             return Response::json(array(
                 'success'=>false,
@@ -143,8 +143,8 @@ WHERE cart_id = ?", array($cart_id));
         );
 
         if($validator->fails()){
-            Log::error(print_r($validator->messages()->all(),true),array('__CLASS__','__FUNCTION__'));
-            return Response::json(array('success'=>false,'message'=>'invalid request'),400);
+            Log::error(print_r($validator->messages()->all(),true),array(__CLASS__,__FUNCTION__));
+            return Response::json(array('success'=>false,'code'=>400,'message'=>'invalid request'),400);
         }
 
         try {
@@ -157,12 +157,13 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
                     $quantity, time()
                 ));
         } catch(\Exception $e){
-            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
-            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getMessage(),array(__CLASS__,__FUNCTION__));
+            Log::error($e->getTraceAsString(),array(__CLASS__,__FUNCTION__));
 
             return Response::json(array(
                 'success'=>false,
-                'message'=>"error updating cart"
+                'code'=>500,
+                'message'=>"An error ocurred while attempting to update your cart"
             ), 500);
         }
 
@@ -188,15 +189,15 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
         );
 
         if($validator->fails()){
-            Log::error(print_r($validator->messages()->all(),true),array('__CLASS__','__FUNCTION__'));
+            Log::error(print_r($validator->messages()->all(),true),array(__CLASS__,__FUNCTION__));
             return Response::json(array('success'=>false,'message'=>'invalid request'),400);
         }
 
         try {
             DB::table('cart_contents')->where('product_id', '=', $product_id)->where('cart_id', '=', $cart_id)->delete();
         }catch(\Exception $e){
-            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
-            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getMessage(),array(__CLASS__,__FUNCTION__));
+            Log::error($e->getTraceAsString(),array(__CLASS__,__FUNCTION__));
 
             return Response::json(array(
                 'success'=>false,
@@ -218,8 +219,8 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
         try {
             DB::table('cart_contents')->where('cart_id', '=', $cart_id)->delete();
         } catch(\Exception $e){
-            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
-            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getMessage(),array(__CLASS__,__FUNCTION__));
+            Log::error($e->getTraceAsString(),array(__CLASS__,__FUNCTION__));
 
             return Response::json(array(
                 'success'=>false,
