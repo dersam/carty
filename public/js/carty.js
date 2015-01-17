@@ -42,6 +42,12 @@ Carty.Events.OnQuantityChange = function(event){
             quantity: quantity
         })
     })
+        .done(function(response){
+
+            jQuery('#loader-image').slideDown();
+            jQuery('#shopping-cart').empty();
+            Carty.Cart.reload();
+        })
         .fail(function(response){
             if(response.code == 400)
                 Alert.error("Invalid quantity ("+quantity+") requested.");
@@ -66,6 +72,7 @@ Carty.Cart.reload = function(){
         Carty.getCart()
             .done(function(response){
                 var html = template(response);
+                jQuery('#shopping-cart').empty();
                 jQuery('#shopping-cart').html(html);
                 jQuery('#loader-image').slideUp();
                 Carty.Events.registerEvents();
