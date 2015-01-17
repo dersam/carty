@@ -4,16 +4,7 @@ jQuery(document).ready(function(){
 
 var Carty = {
     init: function(){
-        Carty.getTemplate('cart').done(function(source){
-            var template = Handlebars.compile(source);
-            Carty.getCart()
-                .done(function(response){
-                    var html = template(response);
-                    jQuery('#shopping-cart').html(html);
-                });
-        });
-
-
+        Carty.Cart.reload();
     },
     getCart: function(){
         return jQuery.ajax({
@@ -43,5 +34,16 @@ Carty.Cart.empty = function(){
 };
 
 Carty.Cart.reload = function(){
+    jQuery('#loader-image').slideDown();
+    jQuery('#shopping-cart').hide();
 
+    Carty.getTemplate('cart').done(function(source){
+        var template = Handlebars.compile(source);
+        Carty.getCart()
+            .done(function(response){
+                var html = template(response);
+                jQuery('#shopping-cart').html(html);
+                jQuery('#loader-image').slideUp();
+            });
+    });
 };
