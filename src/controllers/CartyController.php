@@ -93,31 +93,32 @@ WHERE cart_id = ?", array($cart_id));
             'cart_id'=>$cart_id,
             'products'=>array(),
             'subtotal'=>0,
-            'gst'=>null,
-            'pst'=>null,
+            'gst'=>0,
+            'pst'=>0,
             'total'=>0
         );
 
         foreach($contents as $row){
+            $total = $row->quantity*$row->price_per_unit;
             $product = array(
                 'id'=>$row->product_id,
                 'name'=>$row->name,
                 'quantity'=>$row->quantity,
                 'price_per_unit'=>number_format($row->price_per_unit,2),
-                'total'=> number_format($row->quantity*$row->price_per_unit,2)
+                'total'=> number_format($total,2)
             );
 
-            $cart_contents['subtotal'] += $product['total'];
+            $cart_contents['subtotal'] += $total;
 
             $cart_contents['products'][]=$product;
         }
-
+        Log::info(print_r($cart_contents,true));
         $cart_contents['gst'] = number_format(Config::get('carty::taxes.GST')*$cart_contents['subtotal'],2);
         $cart_contents['pst'] = number_format(Config::get('carty::taxes.PST')*$cart_contents['subtotal'],2);
         $cart_contents['total'] = number_format($cart_contents['subtotal'] + $cart_contents['gst'] + $cart_contents['pst'],2);
 
         $cart_contents['subtotal'] = number_format($cart_contents['subtotal'],2);
-
+        Log::info(print_r($cart_contents,true));
         return Response::json($cart_contents);
     }
 
