@@ -116,6 +116,8 @@ WHERE cart_id = ?", array($cart_id));
         $cart_contents['pst'] = number_format(Config::get('carty::taxes.PST')*$cart_contents['subtotal'],2);
         $cart_contents['total'] = number_format($cart_contents['subtotal'] + $cart_contents['gst'] + $cart_contents['pst'],2);
 
+        $cart_contents['subtotal'] = number_format($cart_contents['subtotal'],2);
+
         return Response::json($cart_contents);
     }
 

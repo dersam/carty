@@ -4,10 +4,27 @@ jQuery(document).ready(function(){
 
 var Carty = {
     init: function(){
+        Carty.getTemplate('cart').done(function(source){
+            var template = Handlebars.compile(source);
+            Carty.getCart()
+                .done(function(response){
+                    var html = template(response);
+                    jQuery('#shopping-cart').html(html);
+                });
+        });
+
 
     },
     getCart: function(){
-
+        return jQuery.ajax({
+            url: 'cart/contents',
+            method: 'get'
+        });
+    },
+    getTemplate: function(template){
+        return jQuery.ajax({
+            url: '/packages/Dersam/Carty/templates/'+template+'.handlebars'
+        });
     },
     Events: {},
     Cart: {}
