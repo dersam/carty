@@ -53,18 +53,6 @@ Carty.Events.OnQuantityChange = function(event){
         });
 };
 
-Carty.Cart.add = function(){
-
-};
-
-Carty.Cart.update = function(){
-
-};
-
-Carty.Cart.remove = function(){
-
-};
-
 Carty.Cart.reload = function(){
     Carty.getTemplate('cart').done(function(source){
         var template = Handlebars.compile(source);

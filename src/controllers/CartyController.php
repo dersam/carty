@@ -149,14 +149,19 @@ WHERE cart_id = ?", array($cart_id));
         }
 
         try {
-            DB::insert("
+            if($quantity > 0) {
+                DB::insert("
 INSERT INTO cart_contents SET cart_id=?,product_id=?, quantity=?, created_at=NOW(), updated_at=NOW()
 ON DUPLICATE KEY UPDATE quantity = ?, updated_at=NOW()
 "
-                , array(
-                    $cart_id, $product_id, $quantity,
-                    $quantity
-                ));
+                    , array(
+                        $cart_id, $product_id, $quantity,
+                        $quantity
+                    ));
+            }
+            else{
+                DB::table('cart_contents')->where('cart_id','=',$cart_id)->where('product_id','=',$product_id)->delete();
+            }
         } catch(\Exception $e){
             Log::error($e->getMessage(),array(__CLASS__,__FUNCTION__));
             Log::error($e->getTraceAsString(),array(__CLASS__,__FUNCTION__));
