@@ -149,12 +149,12 @@ WHERE cart_id = ?", array($cart_id));
 
         try {
             DB::insert("
-INSERT INTO cart_contents SET cart_id=?,product_id=?, quantity=?, created_at=?, updated_at=?
-ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
+INSERT INTO cart_contents SET cart_id=?,product_id=?, quantity=?, created_at=NOW(), updated_at=NOW()
+ON DUPLICATE KEY UPDATE quantity = ?, updated_at=NOW()
 "
                 , array(
-                    $cart_id, $product_id, $quantity, time(), time(),
-                    $quantity, time()
+                    $cart_id, $product_id, $quantity,
+                    $quantity
                 ));
         } catch(\Exception $e){
             Log::error($e->getMessage(),array(__CLASS__,__FUNCTION__));
