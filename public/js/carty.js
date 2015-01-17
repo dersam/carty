@@ -21,6 +21,14 @@ var Carty = {
     Cart: {}
 };
 
+Carty.Events.registerEvents = function(){
+    jQuery('[')
+};
+
+Carty.Events.OnQuantityChange = function(){
+
+};
+
 Carty.Cart.add = function(){
 
 };
