@@ -1,14 +1,15 @@
 @extends('carty::layout')
 
 @section('content')
+<div style="padding-top: 10px"></div>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <h3></h3>
         </div>
         <div class="col-md-2 pull-right">
-            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
-            View Cart
+            <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
+            <span class="sr-only">View Cart</span>
         </div>
     </div>
     <div class="row">
