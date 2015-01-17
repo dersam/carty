@@ -1,24 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Demo shopping cart">
-    <meta name="author" content="Sam Schmidt">
+@extends('carty::layout')
 
-    <title>Carty</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-</head>
-
-<body>
-
+@section('content')
 <div class="container">
-    Hello world
-
+    <div class="row">
+        <div class="col-md-3">
+            <h3></h3>
+        </div>
+        <div class="col-md-2 pull-right">
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            View Cart
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="row">
+                {{HTML::image('packages/Dersam/Carty/img/arai_signet_q_zero_helmet.jpg','helmet',array('class'=>'img-responsive'))}}
+            </div>
+            <div class="row">
+                <button class="btn btn-success" style="width:100%">Add to Cart</button>
+            </div>
+        </div>
+    </div>
 </div>
+@stop
 
-<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-</body>
-</html>

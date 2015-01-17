@@ -21,7 +21,9 @@ class CartyController extends \BaseController{
      * @return \Illuminate\View\View
      */
     function getStorefront(){
-        return View::make('carty::shop');
+        return View::make('carty::shop',array(
+            'title'=>Config::get('carty::title')
+        ));
     }
 
     /**

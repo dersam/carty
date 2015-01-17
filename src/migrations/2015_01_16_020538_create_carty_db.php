@@ -35,7 +35,7 @@ class CreateCartyDb extends Migration {
 			$table->engine = 'InnoDB';
 			$table->integer('cart_id')->unsigned();
 			$table->integer('product_id')->unsigned();
-			$table->double('quantity');
+			$table->integer('quantity');
 			$table->timestamps();
 
 			$table->primary(array('cart_id','product_id'));
