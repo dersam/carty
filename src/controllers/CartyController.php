@@ -91,8 +91,8 @@ where cart_id = ?",array($cart_id));;
             $json['products'][]=$product;
         }
 
-        $json['gst'] = Config::get('carty::GST')*$json['subtotal'];
-        $json['pst'] = Config::get('carty::PST')*$json['subtotal'];
+        $json['gst'] = Config::get('carty::taxes.GST')*$json['subtotal'];
+        $json['pst'] = Config::get('carty::taxes.PST')*$json['subtotal'];
         $json['total'] = $json['subtotal'] + $json['gst'] + $json['pst'];
 
         return Response::json($json);
