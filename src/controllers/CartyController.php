@@ -2,6 +2,7 @@
 
 namespace Dersam\Carty;
 
+use Config;
 use DB;
 use Input;
 use Log;
@@ -20,20 +21,14 @@ class CartyController extends \BaseController{
      * @return \Illuminate\View\View
      */
     function getStorefront(){
-        if(!Session::get('cart_id',false)) {
-           $this->initCart();
-        }
-        else{
-            $cart = Cart::find(Session::get('cart_id'));
-
-            if($cart == null){
-                $this->initCart();
-            }
-        }
-
         return View::make('carty::shop');
     }
 
+    /**
+     * Initialize a new cart in the DB
+     *
+     * @return int id of the current cart
+     */
     function initCart(){
         $cart = new Cart(array(
             'began_shopping_at' => date('Y-m-d H:i:s'),
@@ -42,13 +37,65 @@ class CartyController extends \BaseController{
         $cart->save();
 
         Session::set('cart_id',$cart->id);
+
+        return $cart->id;
     }
 
     /**
-     * Get the current contents of the cart
+     * Get current contents of the cart
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     function getCart(){
+        $cart_id = Session::get('cart_id',false);
 
+        if(!$cart_id) {
+            $cart_id = $this->initCart();
+        }
+        else{
+            $cart = Cart::find(Session::get('cart_id'));
+
+            if($cart == null){
+                $cart_id = $this->initCart();
+            }
+        }
+
+        $contents = DB::select("select
+product_id,
+quantity,
+`name`,
+price_per_unit
+from cart_contents
+inner join products on product_id = products.id
+where cart_id = ?",array($cart_id));;
+
+        $json = array(
+            'cart_id'=>$cart_id,
+            'products'=>array(),
+            'subtotal'=>0,
+            'gst'=>null,
+            'pst'=>null,
+            'total'=>0
+        );
+
+        foreach($contents as $row){
+            $product = array(
+                'id'=>$row->product_id,
+                'quantity'=>$row->quantity,2,
+                'price_per_unit'=>$row->price_per_unit,
+                'total'=> $row->quantity*$row->price_per_unit
+            );
+
+            $json['subtotal'] += $product['total'];
+
+            $json['products'][]=$product;
+        }
+
+        $json['gst'] = Config::get('carty::GST')*$json['subtotal'];
+        $json['pst'] = Config::get('carty::PST')*$json['subtotal'];
+        $json['total'] = $json['subtotal'] + $json['gst'] + $json['pst'];
+
+        return Response::json($json);
     }
 
     /**
