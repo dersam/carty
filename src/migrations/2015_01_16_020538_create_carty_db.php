@@ -29,6 +29,7 @@ class CreateCartyDb extends Migration {
 			$table->text('description');
 			$table->decimal('price_per_unit',10,2);
 			$table->string('image_url',300);
+			$table->timestamps();
 		});
 
 		Schema::create('cart_contents',function($table){
