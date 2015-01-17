@@ -22,7 +22,13 @@ class CartyController extends \BaseController{
      */
     function getStorefront(){
         return View::make('carty::shop',array(
-            'title'=>Config::get('carty::title')
+            'title'=>'Shopping Demo'
+        ));
+    }
+
+    function getCartView(){
+        return View::make('carty::cart',array(
+            'title'=>'Carty'
         ));
     }
 

@@ -2,10 +2,8 @@
 
 Route::group(array('prefix'=>'carty'),function(){
     //Store
-    Route::get('/','Dersam\Carty\CartyController@getStorefront');
+    Route::get('/', array('as'=>'store','uses'=>'Dersam\Carty\CartyController@getStorefront'));
 
     //Cart
-
-    //Checkout
-
+    Route::get('/cart',array('as'=>'cart','uses'=>'Dersam\Carty\CartyController@getCartView'));
 });

@@ -8,8 +8,8 @@
             <h3></h3>
         </div>
         <div class="col-md-2 pull-right">
-            <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
-            <span class="sr-only">View Cart</span>
+           <a href="{{URL::route('cart')}}"> <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
+            <span class="sr-only">View Cart</span></a>
         </div>
     </div>
     <div class="row">
