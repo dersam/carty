@@ -27,20 +27,13 @@ Carty.Cart.add = function(){
 
 Carty.Cart.update = function(){
 
-}
+};
 
 Carty.Cart.remove = function(){
 
 };
 
-Carty.Cart.empty = function(){
-
-};
-
 Carty.Cart.reload = function(){
-    jQuery('#loader-image').slideDown();
-    jQuery('#shopping-cart').hide();
-
     Carty.getTemplate('cart').done(function(source){
         var template = Handlebars.compile(source);
         Carty.getCart()

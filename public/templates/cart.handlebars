@@ -7,17 +7,20 @@
                 <th>Product</th>
                 <th>Price</th>
                 <th class="carty-cart-col-quantity">Quantity</th>
+                <th class="carty-cart-col-spacer"></th>
                 <th class="carty-cart-col-total">Total</th>
             </tr>
             {{#each products}}
             <tr>
                 <td>{{name}}</td>
                 <td>${{price_per_unit}}</td>
-                <td>{{quantity}}</td>
+                <td><input type="text" class="form-control" value="{{quantity}}"/></td>
+                <td></td>
                 <td>${{total}}</td>
             </tr>
             {{/each}}
             <tr>
+                <td class="carty-hidden-table-cell"></td>
                 <td class="carty-hidden-table-cell"></td>
                 <td class="carty-hidden-table-cell"></td>
                 <td>Subtotal</td>
@@ -26,16 +29,19 @@
             <tr>
                 <td class="carty-hidden-table-cell"></td>
                 <td class="carty-hidden-table-cell"></td>
+                <td class="carty-hidden-table-cell"></td>
                 <td>GST</td>
                 <td>${{gst}}</td>
             </tr>
             <tr>
                 <td class="carty-hidden-table-cell"></td>
                 <td class="carty-hidden-table-cell"></td>
+                <td class="carty-hidden-table-cell"></td>
                 <td>PST</td>
                 <td>${{pst}}</td>
             </tr>
             <tr>
+                <td class="carty-hidden-table-cell"></td>
                 <td class="carty-hidden-table-cell"></td>
                 <td class="carty-hidden-table-cell"></td>
                 <td>Grand Total</td>

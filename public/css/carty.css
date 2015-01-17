@@ -5,6 +5,14 @@
 .carty-cart-table{
 }
 
+.carty-cart-col-quantity{
+    width: 40px;
+}
+
+.carty-cart-col-spacer{
+    width: 100px;
+}
+
 .carty-loading-image{
     display: block;
     margin-left: auto;
