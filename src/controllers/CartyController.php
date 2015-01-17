@@ -60,16 +60,27 @@ class CartyController extends \BaseController{
             }
         }
 
-        $contents = DB::select("select
+        try {
+            $contents = DB::select("SELECT
 product_id,
 quantity,
 `name`,
 price_per_unit
-from cart_contents
-inner join products on product_id = products.id
-where cart_id = ?",array($cart_id));;
+FROM cart_contents
+INNER JOIN products ON product_id = products.id
+WHERE cart_id = ?", array($cart_id));
+        } catch(\Exception $e){
+            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+
+            return Response::json(array(
+                'success'=>false,
+                'message'=>"error retrieving cart"
+            ), 500);
+        }
 
         $json = array(
+            'success'=>true,
             'cart_id'=>$cart_id,
             'products'=>array(),
             'subtotal'=>0,
@@ -121,17 +132,27 @@ where cart_id = ?",array($cart_id));;
 
         if($validator->fails()){
             Log::error(print_r($validator->messages()->all(),true),array('__CLASS__','__FUNCTION__'));
-            return Response::json(array('success'=>false,'code'=>400,'message'=>'invalid request'));
+            return Response::json(array('success'=>false,'message'=>'invalid request'),400);
         }
 
-        DB::insert("
+        try {
+            DB::insert("
 INSERT INTO cart_contents SET cart_id=?,product_id=?, quantity=?, created_at=?, updated_at=?
 ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
 "
-            ,array(
-                $cart_id,$product_id,$quantity,time(),time(),
-                $quantity,time()
-            ));
+                , array(
+                    $cart_id, $product_id, $quantity, time(), time(),
+                    $quantity, time()
+                ));
+        } catch(\Exception $e){
+            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+
+            return Response::json(array(
+                'success'=>false,
+                'message'=>"error updating cart"
+            ), 500);
+        }
 
         return Response::json(array('success'=>true));
     }
@@ -156,10 +177,20 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
 
         if($validator->fails()){
             Log::error(print_r($validator->messages()->all(),true),array('__CLASS__','__FUNCTION__'));
-            return Response::json(array('success'=>false,'code'=>400,'message'=>'invalid request'));
+            return Response::json(array('success'=>false,'message'=>'invalid request'),400);
         }
 
-        DB::table('cart_contents')->where('product_id','=',$product_id)->where('cart_id','=',$cart_id)->delete();
+        try {
+            DB::table('cart_contents')->where('product_id', '=', $product_id)->where('cart_id', '=', $cart_id)->delete();
+        }catch(\Exception $e){
+            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+
+            return Response::json(array(
+                'success'=>false,
+                'message'=>"error updating cart"
+            ), 500);
+        }
 
         return Response::json(array('success'=>true));
     }
@@ -172,7 +203,17 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
     function emptyCart(){
         $cart_id = Session::get('cart_id');
 
-        DB::table('cart_contents')->where('cart_id','=',$cart_id)->delete();
+        try {
+            DB::table('cart_contents')->where('cart_id', '=', $cart_id)->delete();
+        } catch(\Exception $e){
+            Log::error($e->getMessage(),array('__CLASS__','__FUNCTION__'));
+            Log::error($e->getTraceAsString(),array('__CLASS__','__FUNCTION__'));
+
+            return Response::json(array(
+                'success'=>false,
+                'message'=>"error emptying cart"
+            ), 500);
+        }
 
         return Response::json(array('success'=>true));
     }
