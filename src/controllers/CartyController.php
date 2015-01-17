@@ -53,7 +53,7 @@ class CartyController extends \BaseController{
             $cart_id = $this->initCart();
         }
         else{
-            $cart = Cart::find(Session::get('cart_id'));
+            $cart = Cart::find(Session::get('carty.cart_id'));
 
             if($cart == null){
                 $cart_id = $this->initCart();
@@ -116,7 +116,7 @@ WHERE cart_id = ?", array($cart_id));
      */
     function addProductToCart(){
         $product_id = Input::json('product_id');
-        $cart_id = Session::get('cart_id');
+        $cart_id = Session::get('carty.cart_id');
         $quantity = Input::json('quantity');
 
         $validator = Validator::make(
@@ -164,7 +164,7 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
      */
     function removeProductFromCart(){
         $product_id = Input::json('product_id');
-        $cart_id = Session::get('cart_id');
+        $cart_id = Session::get('carty.cart_id');
 
         $validator = Validator::make(
             array(
@@ -201,7 +201,7 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=?
      * @return \Illuminate\Http\JsonResponse
      */
     function emptyCart(){
-        $cart_id = Session::get('cart_id');
+        $cart_id = Session::get('carty.cart_id');
 
         try {
             DB::table('cart_contents')->where('cart_id', '=', $cart_id)->delete();
