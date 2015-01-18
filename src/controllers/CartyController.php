@@ -25,17 +25,24 @@ class CartyController extends \BaseController{
         $in_cart = array();
 
         if(!$cart_id) {
-            $item_count = 0;
+            $cart_id = $this->initCart();
         }
-        else {
-            $item_count = DB::table('cart_contents')->where('cart_id', '=', $cart_id)->sum('quantity');
+        else{
+            $cart = Cart::find(Session::get('carty.cart_id'));
 
-            $products = DB::table('cart_contents')->select('product_id')->where('cart_id', '=', $cart_id)->get();
-
-            foreach($products as $p){
-                $in_cart[] = $p->product_id;
+            if($cart == null){
+                $cart_id = $this->initCart();
             }
         }
+
+        $item_count = DB::table('cart_contents')->where('cart_id', '=', $cart_id)->sum('quantity');
+
+        $products = DB::table('cart_contents')->select('product_id')->where('cart_id', '=', $cart_id)->get();
+
+        foreach($products as $p){
+            $in_cart[] = $p->product_id;
+        }
+
 
         return View::make('carty::shop',array(
             'title'=>'Shopping Demo',
@@ -192,7 +199,7 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=NOW()
             ), 500);
         }
 
-        return Response::json(array('success'=>true));
+        return Response::json(array('success'=>true,'product_id'=>$product_id));
     }
 
     /**

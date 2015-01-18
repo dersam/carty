@@ -26,7 +26,9 @@ var Carty = {
         });
     },
     Events: {},
-    Cart: {},
+    Cart: {
+        template: null
+    },
     Shop: {
         item_count: 0,
         Events: {}
@@ -37,15 +39,27 @@ Carty.Shop.init = function(){
     Carty.Shop.item_count = jQuery('#starting-item-count').val();
 
     jQuery('[data-role="add-product"]').on('click',function(event){
+        if(event.target.dataset.incart == 'yes'){
+            return;
+        }
+
         var product_id = event.target.dataset.product;
+
         Carty.Cart.add(product_id, 1)
             .done(Carty.Shop.Events.AfterProductAdd);
     });
 };
 
-Carty.Shop.Events.AfterProductAdd = function(){
+Carty.Shop.Events.AfterProductAdd = function(response){
+    var product_id = response.product_id;
     Carty.Shop.item_count++;
     jQuery('#item-count').html("("+Carty.Shop.item_count+")");
+
+    var button = jQuery('[data-product="'+product_id+'"]');
+    button.attr('data-incart','yes');
+    button.removeClass('btn-success');
+    button.addClass('btn-default');
+    button.html('In Cart');
 };
 
 Carty.Events.registerEvents = function(){
@@ -92,15 +106,24 @@ Carty.Cart.add = function(product, quantity){
 };
 
 Carty.Cart.reload = function(){
-    Carty.getTemplate('cart').done(function(source){
-        var template = Handlebars.compile(source);
+    var loadcart = function(){
         Carty.getCart()
-            .done(function(response){
-                var html = template(response);
+            .done(function (response) {
+                var html = Carty.Cart.template(response);
                 jQuery('#shopping-cart').empty();
                 jQuery('#shopping-cart').html(html);
                 jQuery('#loader-image').slideUp();
                 Carty.Events.registerEvents();
             });
-    });
+    };
+
+    if(Carty.Cart.template == null) {
+        Carty.getTemplate('cart').done(function (source) {
+            Carty.Cart.template = Handlebars.compile(source);
+            loadcart();
+        });
+    }
+    else{
+        loadcart();
+    }
 };
