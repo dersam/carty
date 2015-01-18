@@ -22,7 +22,7 @@ var Carty = {
     },
     getTemplate: function(template){
         return jQuery.ajax({
-            url: '/packages/Dersam/Carty/templates/'+template+'.handlebars'
+            url: '/packages/dersam/carty/templates/'+template+'.handlebars'
         });
     },
     Events: {},

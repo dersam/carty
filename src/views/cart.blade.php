@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div id="loader-image">
-                {{HTML::image('packages/Dersam/Carty/img/squares.gif','loading image',array('class'=>'carty-loading-image'))}}
+                {{HTML::image('packages/dersam/carty/img/squares.gif','loading image',array('class'=>'carty-loading-image'))}}
             </div>
         </div>
 
