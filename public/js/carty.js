@@ -75,8 +75,10 @@ Carty.Events.registerEvents = function(){
 };
 
 Carty.Events.OnQuantityChange = function(event){
-    var product_id = event.target.dataset.product;
-    var quantity = event.target.value;
+    var loc = jQuery(event.currentTarget);
+
+    var product_id = loc.attr('data-product');
+    var quantity = loc.val();
     jQuery('#shopping-cart').hide();
 
     quantity = quantity == '' ? 0 : quantity;
