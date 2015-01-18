@@ -28,7 +28,8 @@ var Carty = {
     Events: {},
     Cart: {},
     Shop: {
-        item_count: 0
+        item_count: 0,
+        Events: {}
     }
 };
 
@@ -37,10 +38,12 @@ Carty.Shop.init = function(){
     jQuery('[data-role="add-product"]').on('click',function(event){
         var product_id = event.target.dataset.product;
         Carty.Cart.add(product_id, 1)
-            .done(function(response){
-
-            });
+            .done(Carty.Shop.Events.AfterProductAdd);
     });
+};
+
+Carty.Shop.Events.AfterProductAdd = function(){
+
 };
 
 Carty.Events.registerEvents = function(){

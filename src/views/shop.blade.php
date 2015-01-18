@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-2 pull-right">
            <a href="{{URL::route('cart')}}"> <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
-            <div>View Cart <span id="item-count"></span></div></a>
+            <div>View Cart <span id="item-count">({{$item_count}})</span></div></a>
         </div>
     </div>
     <div class="row">

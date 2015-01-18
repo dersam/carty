@@ -21,9 +21,17 @@ class CartyController extends \BaseController{
      * @return \Illuminate\View\View
      */
     function getStorefront(){
+        $cart_id = Session::get('carty.cart_id',false);
+
+        if(!$cart_id)
+            $item_count = 0;
+        else
+            $item_count = DB::table('cart_contents')->where('cart_id','=',$cart_id)->sum('quantity');
+
         return View::make('carty::shop',array(
             'title'=>'Shopping Demo',
-            'products'=>Product::all()
+            'products'=>Product::all(),
+            'item_count'=>$item_count
         ));
     }
 
