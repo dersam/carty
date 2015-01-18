@@ -4,6 +4,7 @@
 <div style="padding-top: 10px"></div>
 <div class="container">
     <input type="hidden" id="page-context" value="shop"/>
+    <input type="hidden" id="starting-item-count" value="{{$item_count}}"/>
     <div class="row">
         <div class="col-md-3">
             <h3></h3>

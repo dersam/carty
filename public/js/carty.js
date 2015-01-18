@@ -34,7 +34,8 @@ var Carty = {
 };
 
 Carty.Shop.init = function(){
-    console.log('booting shop');
+    Carty.Shop.item_count = jQuery('#starting-item-count').val();
+
     jQuery('[data-role="add-product"]').on('click',function(event){
         var product_id = event.target.dataset.product;
         Carty.Cart.add(product_id, 1)
@@ -43,7 +44,8 @@ Carty.Shop.init = function(){
 };
 
 Carty.Shop.Events.AfterProductAdd = function(){
-
+    Carty.Shop.item_count++;
+    jQuery('#item-count').html("("+Carty.Shop.item_count+")");
 };
 
 Carty.Events.registerEvents = function(){
