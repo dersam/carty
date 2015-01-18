@@ -26,5 +26,32 @@ The shape of the Arai Signet-Q Helmet releases forehead pressures and eliminate 
             'image_url'=>'packages/Dersam/Carty/img/alpinestars_black_shadow_phantom_jacket_black.jpg'
         ));
 
+        \Dersam\Carty\Product::create(array(
+            'name'=>'River Road Traditional Harness Boots',
+            'description'=>'',
+            'price_per_unit'=>'215.94',
+            'image_url'=>'packages/Dersam/Carty/img/2006_River_Road_Traditional_Square_Toe_Harness_Boots_Brown.jpg'
+        ));
+
+        \Dersam\Carty\Product::create(array(
+            'name'=>'Fox Racing V1 Race Helmet',
+            'description'=>'',
+            'price_per_unit'=>'196.00',
+            'image_url'=>'packages/Dersam/Carty/img/fox_racing_v1_race_helmet_rollover.jpg'
+        ));
+
+        \Dersam\Carty\Product::create(array(
+            'name'=>'FXR Mission Goggles',
+            'description'=>'',
+            'price_per_unit'=>'79.99',
+            'image_url'=>'packages/Dersam/Carty/img/mission-mx-goggle-red-blk-14440-501-oil_r1000x1000.jpg'
+        ));
+
+        \Dersam\Carty\Product::create(array(
+            'name'=>'QuadBoss Corded Winch Remote - 60-8706',
+            'description'=>'',
+            'price_per_unit'=>'57.49',
+            'image_url'=>'packages/Dersam/Carty/img/06ac43cc214c7f0504a3b929b930c9c1.jpg'
+        ));
     }
 }
