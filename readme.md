@@ -26,4 +26,5 @@ Tools used:
     php artisan asset:publish
 6. Create the database tables (will use your application's connection string from app/config/database.php)
     php artisan migrate --package="dersam/carty"
-    
+7. Run the database seed if you want the demo data
+    php artisan db:seed --class=CartyDemoSeed
