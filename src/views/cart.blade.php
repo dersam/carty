@@ -1,6 +1,7 @@
 @extends('carty::layout')
 
 @section('content')
+    <div style="padding-top: 10px"></div>
     <div class="container">
         <input type="hidden" id="page-context" value="cart"/>
         <div class="row">
