@@ -14,7 +14,7 @@
     </div>
     <div class="row">
         @foreach($products as $product)
-        <div class="col-md-2 col-xs-2 col-md-offset-1">
+        <div class="col-md-2  col-md-offset-1 col-sm-6 col-sm-2 col-xs-6 col-xs-offset-2">
             <div class="row">
                 {{HTML::image($product->image_url,'',array('class'=>'img-responsive'))}}
             </div>
