@@ -3,9 +3,21 @@
 @section('content')
     <div class="container">
         <input type="hidden" id="page-context" value="cart"/>
-        <div id="loader-image">
-            {{HTML::image('packages/Dersam/Carty/img/squares.gif','loading image',array('class'=>'carty-loading-image'))}}
+        <div class="row">
+            <div class="col-md-3">
+                <h1>Shopping Cart</h1>
+            </div>
+            <div class="col-md-2 pull-right">
+                <a href="{{URL::route('store')}}"> <span class="glyphicon glyphicon-home" style="font-size: 50px" aria-hidden="true"></span>
+                    <div>Back to Shop</div></a>
+            </div>
         </div>
-        <div id="shopping-cart"></div>
+        <div class="row">
+            <div id="loader-image">
+                {{HTML::image('packages/Dersam/Carty/img/squares.gif','loading image',array('class'=>'carty-loading-image'))}}
+            </div>
+        </div>
+
+        <div id="shopping-cart" class="row"></div>
     </div>
 @stop
