@@ -9,14 +9,16 @@
         <div class="col-md-4 pull-left">
             <h1>Local Gear Shop</h1>
         </div>
-        <div class="col-md-2 pull-right">
-           <a href="{{URL::route('cart')}}"> <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
-            <div>View Cart <span id="item-count">({{$item_count}})</span></div></a>
+        <div class="col-md-2 pull-right text-center">
+           <a href="{{URL::route('cart')}}">
+               <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
+                <p>View Cart <span id="item-count">({{$item_count}})</span></p>
+           </a>
         </div>
     </div>
     <div class="row">
         @foreach($products as $product)
-        <div class="col-md-2 col-md-offset-1 col-sm-6 col-sm-2 col-xs-6 col-xs-offset-2 carty-product-box">
+        <div class="col-md-2 col-sm-6 col-xs-6 carty-product-box">
             <div class="row">
                 {{HTML::image($product->image_url,'',array('class'=>'img-responsive', 'height'=>'195px'))}}
             </div>
