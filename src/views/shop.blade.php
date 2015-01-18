@@ -32,10 +32,16 @@
                 @else
                 <button data-role="add-product" data-incart="yes" data-product="{{$product->id}}" class="btn btn-default" style="width:100%">In Cart</button>
                 @endif
+                <div data-role="loader" data-product="{{$product->id}}" style="display: none">
+                    {{HTML::image('packages/Dersam/Carty/img/button-loader.gif','',array('class'=>'img-responsive'))}}
+                </div>
             </div>
         </div>
         @endforeach
     </div>
+</div>
+<div id="loader" style="display: none">
+    {{HTML::image('packages/Dersam/Carty/img/button-loader.gif','',array('class'=>'img-responsive'))}}
 </div>
 @stop
 

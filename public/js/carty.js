@@ -45,6 +45,11 @@ Carty.Shop.init = function(){
 
         var product_id = event.target.dataset.product;
 
+        jQuery(this).hide();
+        jQuery('[data-role="loader"][data-product="'+product_id+'"]').show();
+
+
+
         Carty.Cart.add(product_id, 1)
             .done(Carty.Shop.Events.AfterProductAdd);
     });
@@ -55,11 +60,13 @@ Carty.Shop.Events.AfterProductAdd = function(response){
     Carty.Shop.item_count++;
     jQuery('#item-count').html("("+Carty.Shop.item_count+")");
 
-    var button = jQuery('[data-product="'+product_id+'"]');
+    var button = jQuery('[data-product="'+product_id+'"][data-role="add-product"]');
     button.attr('data-incart','yes');
     button.removeClass('btn-success');
     button.addClass('btn-default');
     button.html('In Cart');
+    jQuery('[data-role="loader"][data-product="'+product_id+'"]').hide();
+    button.show();
 };
 
 Carty.Events.registerEvents = function(){
