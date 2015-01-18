@@ -17,6 +17,9 @@
         </div>
     </div>
     <div class="row">
+        <hr/>
+    </div>
+    <div class="row">
         @foreach($products as $product)
         <div class="col-md-2 col-sm-6 col-xs-6 carty-product-box">
             <div class="row">
