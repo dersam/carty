@@ -27,7 +27,11 @@
                 ${{number_format($product->price_per_unit,2)}}
             </div>
             <div class="row carty-product-box-spacer">
+                @if(!in_array($product->id, $in_cart))
                 <button data-role="add-product" data-product="{{$product->id}}" class="btn btn-success" style="width:100%">Add to Cart</button>
+                @else
+                <button data-product="{{$product->id}}" class="btn btn-default" style="width:100%">In Cart</button>
+                @endif
             </div>
         </div>
         @endforeach

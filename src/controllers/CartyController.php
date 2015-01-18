@@ -22,16 +22,26 @@ class CartyController extends \BaseController{
      */
     function getStorefront(){
         $cart_id = Session::get('carty.cart_id',false);
+        $in_cart = array();
 
-        if(!$cart_id)
+        if(!$cart_id) {
             $item_count = 0;
-        else
-            $item_count = DB::table('cart_contents')->where('cart_id','=',$cart_id)->sum('quantity');
+        }
+        else {
+            $item_count = DB::table('cart_contents')->where('cart_id', '=', $cart_id)->sum('quantity');
+
+            $products = DB::table('cart_contents')->select('product_id')->where('cart_id', '=', $cart_id)->get();
+
+            foreach($products as $p){
+                $in_cart[] = $p->product_id;
+            }
+        }
 
         return View::make('carty::shop',array(
             'title'=>'Shopping Demo',
             'products'=>Product::all(),
-            'item_count'=>$item_count
+            'item_count'=>$item_count,
+            'in_cart'=>$in_cart
         ));
     }
 
