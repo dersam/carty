@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-2 pull-right">
            <a href="{{URL::route('cart')}}"> <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
-            <span class="sr-only">View Cart</span></a>
+            <div>View Cart</div></a>
         </div>
     </div>
     <div class="row">
