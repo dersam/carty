@@ -10,7 +10,7 @@
         </div>
         <div class="col-md-2 pull-right">
            <a href="{{URL::route('cart')}}"> <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
-            <div>View Cart</div></a>
+            <div>View Cart <span id="item-count"></span></div></a>
         </div>
     </div>
     <div class="row">
@@ -26,7 +26,7 @@
                 ${{number_format($product->price_per_unit,2)}}
             </div>
             <div class="row carty-product-box-spacer">
-                <button class="btn btn-success" style="width:100%">Add to Cart</button>
+                <button data-role="add-product" data-product="{{$product->id}}" class="btn btn-success" style="width:100%">Add to Cart</button>
             </div>
         </div>
         @endforeach

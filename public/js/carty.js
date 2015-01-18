@@ -27,11 +27,20 @@ var Carty = {
     },
     Events: {},
     Cart: {},
-    Shop: {}
+    Shop: {
+        item_count: 0
+    }
 };
 
 Carty.Shop.init = function(){
     console.log('booting shop');
+    jQuery('[data-role="add-product"]').on('click',function(event){
+        var product_id = event.target.dataset.product;
+        Carty.Cart.add(product_id, 1)
+            .done(function(response){
+
+            });
+    });
 };
 
 Carty.Events.registerEvents = function(){
@@ -64,6 +73,17 @@ Carty.Events.OnQuantityChange = function(event){
             jQuery('#loader-image').slideUp();
             jQuery('#shopping-cart').show();
         });
+};
+
+Carty.Cart.add = function(product, quantity){
+    return jQuery.ajax({
+        url:'carty/cart/contents',
+        method: 'post',
+        data: JSON.stringify({
+            product_id: product,
+            quantity: quantity
+        })
+    });
 };
 
 Carty.Cart.reload = function(){
