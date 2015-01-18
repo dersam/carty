@@ -13,6 +13,10 @@
     width: 100px;
 }
 
+.carty-product-box-spacer{
+    padding-top: 10px;
+}
+
 .carty-loading-image{
     display: block;
     margin-left: auto;

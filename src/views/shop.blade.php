@@ -13,14 +13,22 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-2">
+        @foreach($products as $product)
+        <div class="col-md-2 col-md-offset-1">
             <div class="row">
-                {{HTML::image('packages/Dersam/Carty/img/arai_signet_q_zero_helmet.jpg','helmet',array('class'=>'img-responsive'))}}
+                {{HTML::image($product->image_url,'',array('class'=>'img-responsive'))}}
             </div>
-            <div class="row">
+            <div class="row carty-product-box-spacer">
+                <strong>{{$product->name}}</strong>
+            </div>
+            <div class="row carty-product-box-spacer">
+                ${{number_format($product->price_per_unit,2)}}
+            </div>
+            <div class="row carty-product-box-spacer">
                 <button class="btn btn-success" style="width:100%">Add to Cart</button>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 @stop
