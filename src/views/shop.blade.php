@@ -6,8 +6,8 @@
     <input type="hidden" id="page-context" value="shop"/>
     <input type="hidden" id="starting-item-count" value="{{$item_count}}"/>
     <div class="row">
-        <div class="col-md-3">
-            <h3></h3>
+        <div class="col-md-4 pull-left">
+            <h1>Local Gear Shop</h1>
         </div>
         <div class="col-md-2 pull-right">
            <a href="{{URL::route('cart')}}"> <span class="glyphicon glyphicon-shopping-cart" style="font-size: 50px" aria-hidden="true"></span>
