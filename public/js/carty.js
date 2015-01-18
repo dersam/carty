@@ -95,7 +95,9 @@ Carty.Events.OnQuantityChange = function(event){
             jQuery('#shopping-cart').show();
             Carty.Cart.reload();
         })
-        .fail(function(response){
+        .fail(function(xhr){
+            var loc = jQuery('[data-role="quantity"][data-product="'+product_id+'"]');
+            loc.val(xhr.responseJSON.previous_quantity);
             jQuery('#loader-image').slideUp();
             jQuery('#shopping-cart').show();
         });

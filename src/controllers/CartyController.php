@@ -169,12 +169,18 @@ WHERE cart_id = ?", array($cart_id));
             )
         );
 
-        if($validator->fails()){
-            Log::error(print_r($validator->messages()->all(),true),array(__CLASS__,__FUNCTION__));
-            return Response::json(array('success'=>false,'code'=>400,'message'=>'invalid request'),400);
-        }
 
         try {
+            $previous_quantity = DB::table('cart_contents')->select('quantity')->where('cart_id','=',$cart_id)->where('product_id','=',$product_id)->first();
+            if($previous_quantity == null)
+                $previous_quantity = 0;
+            else
+                $previous_quantity = $previous_quantity->quantity;
+            if($validator->fails()){
+                Log::error(print_r($validator->messages()->all(),true),array(__CLASS__,__FUNCTION__));
+                return Response::json(array('success'=>false,'code'=>400,'message'=>'invalid request','previous_quantity'=>$previous_quantity),400);
+            }
+
             if($quantity > 0) {
                 DB::insert("
 INSERT INTO cart_contents SET cart_id=?,product_id=?, quantity=?, created_at=NOW(), updated_at=NOW()
@@ -195,11 +201,12 @@ ON DUPLICATE KEY UPDATE quantity = ?, updated_at=NOW()
             return Response::json(array(
                 'success'=>false,
                 'code'=>500,
-                'message'=>"An error ocurred while attempting to update your cart"
+                'message'=>"An error ocurred while attempting to update your cart",
+                'previous_quantity'=>$previous_quantity
             ), 500);
         }
 
-        return Response::json(array('success'=>true,'product_id'=>$product_id));
+        return Response::json(array('success'=>true,'product_id'=>$product_id,'previous_quantity'=>$previous_quantity));
     }
 
     /**
