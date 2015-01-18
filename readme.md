@@ -12,6 +12,8 @@ Tools used:
 *   jQuery
 *   Handlebars
 
+Composer package on Packagist:
+    https://packagist.org/packages/dersam/carty
 
 ##Installation Instructions
 
