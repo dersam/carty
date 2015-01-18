@@ -38,12 +38,12 @@ var Carty = {
 Carty.Shop.init = function(){
     Carty.Shop.item_count = jQuery('#starting-item-count').val();
 
-    jQuery('[data-role="add-product"]').on('click',function(event){
-        if(event.target.dataset.incart == 'yes'){
+    jQuery('[data-role="add-product"]').on('click',function(){
+        if(jQuery(this).attr('data-incart') == 'yes'){
             return;
         }
 
-        var product_id = event.target.dataset.product;
+        var product_id = jQuery(this).attr('data-product');
 
         jQuery(this).hide();
         jQuery('[data-role="loader"][data-product="'+product_id+'"]').show();
