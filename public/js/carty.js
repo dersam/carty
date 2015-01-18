@@ -4,11 +4,19 @@ jQuery(document).ready(function(){
 
 var Carty = {
     init: function(){
-        Carty.Cart.reload();
+        var context = Carty.getPageContext();
+        if(context=='cart')
+            Carty.Cart.reload();
+        else if(context=='shop'){
+            Carty.Shop.init();
+        }
+    },
+    getPageContext: function(){
+        return jQuery('#page-context').val();
     },
     getCart: function(){
         return jQuery.ajax({
-            url: 'cart/contents',
+            url: '/carty/cart/contents',
             method: 'get'
         });
     },
@@ -18,7 +26,12 @@ var Carty = {
         });
     },
     Events: {},
-    Cart: {}
+    Cart: {},
+    Shop: {}
+};
+
+Carty.Shop.init = function(){
+    console.log('booting shop');
 };
 
 Carty.Events.registerEvents = function(){

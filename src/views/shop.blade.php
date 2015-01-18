@@ -3,6 +3,7 @@
 @section('content')
 <div style="padding-top: 10px"></div>
 <div class="container">
+    <input type="hidden" id="page-context" value="shop"/>
     <div class="row">
         <div class="col-md-3">
             <h3></h3>
@@ -14,11 +15,11 @@
     </div>
     <div class="row">
         @foreach($products as $product)
-        <div class="col-md-2  col-md-offset-1 col-sm-6 col-sm-2 col-xs-6 col-xs-offset-2">
+        <div class="col-md-2 col-md-offset-1 col-sm-6 col-sm-2 col-xs-6 col-xs-offset-2 carty-product-box">
             <div class="row">
-                {{HTML::image($product->image_url,'',array('class'=>'img-responsive'))}}
+                {{HTML::image($product->image_url,'',array('class'=>'img-responsive', 'height'=>'195px'))}}
             </div>
-            <div class="row carty-product-box-spacer">
+            <div class="row carty-product-box-spacer carty-product-info">
                 <strong>{{$product->name}}</strong>
             </div>
             <div class="row carty-product-box-spacer">

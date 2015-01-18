@@ -17,6 +17,10 @@
     padding-top: 10px;
 }
 
+.carty-product-info{
+    min-height: 50px;
+}
+
 .carty-loading-image{
     display: block;
     margin-left: auto;
